@@ -1,19 +1,21 @@
 package userinterface;
 
 import java.awt.GridLayout;
-import java.awt.event.ActionListener;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.awt.event.ActionEvent;
+import java.awt.event.*;
 import javax.swing.BorderFactory;
+import javax.swing.event.MenuKeyEvent;
+import java.awt.KeyboardFocusManager;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import org.json.simple.*;
 import javax.swing.*;
+import java.awt.Window.getFocusOwner;
 
 
 
-
+z
 
 	public class userinterface 
 	{
@@ -39,7 +41,6 @@ import javax.swing.*;
 		//JSON file creator
 		@SuppressWarnings("unchecked")
 		public void jsonfilecreator(){
-			
 			JSONObject obj = new JSONObject();
 			String Address = address.getText();
 			String Name = owner.getText();
@@ -55,7 +56,7 @@ import javax.swing.*;
 			}
 			catch(IOException x)
 			{
-			
+			x.printStackTrace();
 			}
 			System.out.print("\n" + obj);
 		}
@@ -65,8 +66,11 @@ import javax.swing.*;
 		public userinterface() 
 		{
 		label1.setSize(10,20);
+		//
 		
+		//Title
 		frame.setTitle("Trauma GUI");
+		//
 		panel.setLayout(new GridLayout(20,3,0,1));
 		panel.add(label1);
 		panel.add(address);
@@ -76,10 +80,13 @@ import javax.swing.*;
 		panel.add(label3);
 		panel.add(firm);
 		panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+		//
 		frame.add(panel, BorderLayout.CENTER);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		System.out.print("INFO:" + "\n");
+		
+		//Address inputs
 		
 		address.addActionListener(new ActionListener()
 		{
@@ -90,7 +97,10 @@ import javax.swing.*;
 			System.out.print( "Firm Address: " + firm_address + "\n");
 			}
 		});
-
+		
+		address.addFocusListener
+		
+		//Firm inputs
 		firm.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -102,6 +112,7 @@ import javax.swing.*;
 			
 		});
 		
+		
 		owner.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -109,17 +120,33 @@ import javax.swing.*;
 			String name = owner.getText();
 			lownername.setText("Owner's Name: " + name);
 			System.out.print( "Owner's Name: " + name + "\n");
-		
+			
 			}
 		});
+		
 		
 		submit.addActionListener(new ActionListener()
 				{ 
 					public void actionPerformed(ActionEvent e) 
 					{
+						if(address.getText().isBlank() || owner.getText().isBlank() || firm.getText().isBlank()) 
+						{
+							System.out.print("\n" + "ERROR MISSING INFORMATION");
+							submit.setText("ERROR: Missing Info");
+						}
+						else if(address.getText().isEmpty() || owner.getText().isEmpty() || firm.getText().isEmpty()) 
+						{
+							System.out.print("\n" + "ERROR MISSING INFORMATION");
+							submit.setText("ERROR: Missing Info");
+						}
+						else
+						{
+						submit.setText("Submit");
 						jsonfilecreator();
+						}
 					}
 				});
+		
 		
 		panel.add(laddress);
 		panel.add(lownername);
@@ -129,6 +156,20 @@ import javax.swing.*;
 		frame.setVisible(true);
 		panel.add(label4);
 		panel.add(submit);
+		
+		//makes Enter Key go to next line:
+		Action enter = new AbstractAction()
+				{
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+					KeyboardFocusManager KeyChecker = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+					KeyChecker.getFocusOwner.transferFocus();
+					}
+				
+				}
+		
+
 	}
 //
 
