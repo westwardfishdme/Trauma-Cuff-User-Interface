@@ -14,3 +14,6 @@ Added Error Handling for empty inputted lines (JSON will not be created when lin
 -Have Enter key transition focus to next available input.
 -Create Server Side Java Applet.
 
+NOTICE: PROJECT ABANDONED! 
+
+Abandoned to work on a new AES encryption software. Feel free to use this code as you wish.
